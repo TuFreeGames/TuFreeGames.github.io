@@ -3,45 +3,85 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Web Games Hub</title>
+    <title>Free Web Games Hub｜免費科技感網頁遊戲合集</title>
     <meta
       name="description"
-      content="免費網頁遊戲集合網站，持續新增可直接遊玩的遊戲內容。"
+      content="免安裝、手機電腦支援的極簡科技感免費網頁遊戲合集。點擊立即遊玩一鍵渡劫等小遊戲！"
     />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Free Web Games Hub｜免費科技感網頁遊戲合集" />
+    <meta
+      property="og:description"
+      content="免安裝、手機電腦支援的極簡科技感免費網頁遊戲合集。點擊立即遊玩一鍵渡劫等小遊戲！"
+    />
+    <meta property="og:image" content="https://jimmy4955.github.io/free-web-games/og-cover.png" />
+    <meta property="og:url" content="https://jimmy4955.github.io/free-web-games/" />
     <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Free Web Games Hub 遊戲清單",
+        "itemListOrder": "https://schema.org/ItemListOrderAscending",
+        "numberOfItems": 1,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "一鍵渡劫 One-Key Tribulation",
+            "url": "https://jimmy4955.github.io/free-web-games/game/one-key-tribulation/",
+            "description": "短秒挑戰，按住蓄力並閃避天雷的極簡動作小遊戲。"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="site-header">
-      <div class="container">
-        <h1>Free Web Games Hub</h1>
-        <p>簡單、快速、可擴充的免費網頁遊戲集合站。</p>
+      <div class="container hero-layout">
+        <section class="hero-copy" aria-label="網站主視覺">
+          <h1>Free Web Games Hub</h1>
+          <p class="hero-tagline">免安裝 • 即點即玩 • 支援手機/桌機</p>
+          <p class="hero-subtitle">
+            探索免費網頁遊戲，專為手機 &amp; 桌機支援設計。所有作品都能免安裝即玩，打開頁面就能開始挑戰。
+          </p>
+          <a class="cta-button" href="#game-list">▶ 立即玩遊戲</a>
+        </section>
+        <div class="hero-tech-pattern" aria-hidden="true"></div>
       </div>
     </header>
 
     <main class="container">
-      <section class="card">
-        <h2>網站狀態</h2>
-        <p>目前先完成基礎框架，下一步會逐步上架遊戲。</p>
+      <section class="card intro-card" aria-labelledby="site-intro-title">
+        <h2 id="site-intro-title">網站介紹</h2>
+        <p>
+          這裡收錄極簡科技感的免費網頁遊戲，主打快節奏、低門檻。每款遊戲都針對手機 &amp; 桌機支援調整操作，免安裝即玩。
+        </p>
       </section>
 
-      <section class="card">
-        <h2>即將上線分類</h2>
+      <section class="card" aria-labelledby="genre-title">
+        <h2 id="genre-title">遊戲類型</h2>
         <ul>
-          <li>益智 Puzzle</li>
+          <li>解謎 Puzzle</li>
           <li>動作 Action</li>
           <li>休閒 Casual</li>
         </ul>
       </section>
 
-
-      <section class="card">
-        <h2>已上線遊戲</h2>
-        <p><a href="./game/one-key-tribulation/">⚡ 一鍵渡劫（One-Key Tribulation）</a></p>
+      <section class="card" id="game-list" aria-labelledby="game-list-title">
+        <h2 id="game-list-title">已上線遊戲</h2>
+        <div class="game-grid">
+          <article class="game-card">
+            <h3>⚡ 一鍵渡劫 One-Key Tribulation</h3>
+            <p>短秒挑戰 • 按住蓄力 • 閃避天雷</p>
+            <a class="play-button" href="./game/one-key-tribulation/">Play Now</a>
+          </article>
+        </div>
       </section>
 
-      <section class="card">
-        <h2>廣告版位預留</h2>
-        <div class="ad-slot">Ad Slot（預留給 AdSense）</div>
+      <section class="card" aria-labelledby="ad-title">
+        <h2 id="ad-title">廣告預留區</h2>
+        <div class="ad-slot">Ad Slot（可後續接 AdSense）</div>
       </section>
     </main>
 

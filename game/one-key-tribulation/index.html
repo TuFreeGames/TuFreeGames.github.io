@@ -3,38 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>一鍵渡劫 One-Key Tribulation</title>
-    <meta name="description" content="按住蓄力、放開引雷，拖曳角色閃避雷劫！" />
+    <title>一鍵渡劫</title>
+    <meta
+      name="description"
+      content="技術型硬核渡劫：移動閃避落雷、擦邊累積突破值，突破境界後三選一天賦。"
+    />
     <link rel="stylesheet" href="./game.css" />
   </head>
   <body>
-    <canvas id="game" aria-label="一鍵渡劫遊戲畫布"></canvas>
+    <canvas id="game" aria-label="一鍵渡劫遊戲畫面"></canvas>
 
     <div class="hud" id="hud">
-      <div>HP: <span id="hp">3</span></div>
-      <div>Score: <span id="score">0</span></div>
-      <div>Time: <span id="time">0.0</span>s</div>
-      <div>Best: <span id="best">0</span></div>
-    </div>
-
-    <div class="power-wrap" id="powerWrap" hidden>
-      <div class="power-label">Power</div>
-      <div class="power-track"><div class="power-fill" id="powerFill"></div></div>
+      <div>最高分：<span id="best">0</span></div>
+      <div>當前分：<span id="score">0</span></div>
+      <div>時間：<span id="time">0.0</span> 秒</div>
+      <div class="hud-sep" aria-hidden="true"></div>
+      <div>落雷傷害：<span id="boltDamage">5</span></div>
+      <div>渡劫次數：<span id="stage">0</span></div>
+      <div class="hud-sep" aria-hidden="true"></div>
+      <div>血量：<span id="hp">10/10</span></div>
+      <div>境界：<span id="realm">練氣初期</span></div>
+      <div class="break-wrap">
+        <span>突破：</span>
+        <div class="break-track"><div class="break-fill" id="breakFill"></div></div>
+        <span id="breakText">0/19</span>
+      </div>
+      <div class="buff-line">天賦：<span id="buffs">無</span></div>
     </div>
 
     <div class="overlay" id="overlay">
       <div class="panel" id="startPanel">
-        <h1>⚡ 一鍵渡劫</h1>
-        <p>按住蓄力（Power），放開觸發雷劫；拖曳角色左右移動閃避落雷。</p>
-        <p class="hint">手機與桌機都可操作，祝你渡劫成功。</p>
+        <h1>一鍵渡劫</h1>
+        <p>滑鼠或手指左右移動閃避雷劫，擦邊可獲得大量突破值。</p>
+        <p class="hint">每次突破境界會三選一天賦，撐得越久難度越高。</p>
         <button id="startBtn">開始遊戲</button>
         <a class="home-link" href="../../index.html">回首頁</a>
       </div>
 
+      <div class="panel" id="buffPickPanel" hidden>
+        <h2 id="buffTitle">突破成功！選擇一個天賦</h2>
+        <div class="buff-grid" id="buffGrid"></div>
+      </div>
+
       <div class="panel" id="gameOverPanel" hidden>
-        <h2>Game Over</h2>
+        <h2>渡劫失敗</h2>
         <p>本局分數：<span id="finalScore">0</span></p>
-        <p>存活秒數：<span id="finalTime">0.0</span>s</p>
+        <p>渡過劫數：<span id="finalStage">0</span></p>
+        <p>最高境界：<span id="finalRealm">練氣初期</span></p>
+        <p>存活時間：<span id="finalTime">0.0</span> 秒</p>
         <p>Best：<span id="finalBest">0</span></p>
         <div class="actions">
           <button id="restartBtn">再來一次</button>
