@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>一鍵渡劫 One-Key Tribulation</title>
+    <meta name="description" content="按住蓄力、放開引雷，拖曳角色閃避雷劫！" />
+    <link rel="stylesheet" href="./game.css" />
+  </head>
+  <body>
+    <canvas id="game" aria-label="一鍵渡劫遊戲畫布"></canvas>
+
+    <div class="hud" id="hud">
+      <div>HP: <span id="hp">3</span></div>
+      <div>Score: <span id="score">0</span></div>
+      <div>Time: <span id="time">0.0</span>s</div>
+      <div>Best: <span id="best">0</span></div>
+    </div>
+
+    <div class="power-wrap" id="powerWrap" hidden>
+      <div class="power-label">Power</div>
+      <div class="power-track"><div class="power-fill" id="powerFill"></div></div>
+    </div>
+
+    <div class="overlay" id="overlay">
+      <div class="panel" id="startPanel">
+        <h1>⚡ 一鍵渡劫</h1>
+        <p>按住蓄力（Power），放開觸發雷劫；拖曳角色左右移動閃避落雷。</p>
+        <p class="hint">手機與桌機都可操作，祝你渡劫成功。</p>
+        <button id="startBtn">開始遊戲</button>
+        <a class="home-link" href="../../index.html">回首頁</a>
+      </div>
+
+      <div class="panel" id="gameOverPanel" hidden>
+        <h2>Game Over</h2>
+        <p>本局分數：<span id="finalScore">0</span></p>
+        <p>存活秒數：<span id="finalTime">0.0</span>s</p>
+        <p>Best：<span id="finalBest">0</span></p>
+        <div class="actions">
+          <button id="restartBtn">再來一次</button>
+          <a class="home-link" href="../../index.html">回首頁</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="./game.js"></script>
+  </body>
+</html>
