@@ -89,6 +89,8 @@ body {
   position: relative;
   width: min(100%, 680px);
   margin: 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 canvas {
@@ -98,6 +100,20 @@ canvas {
   border: 1px solid #1f2f4f;
   background: #0b1326;
   display: block;
+}
+
+.canvas-wrap.prelaunch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, #2f4f85 0%, #0b1326 62%);
+  filter: blur(12px);
+  transform: scale(1.08);
+  z-index: 0;
+}
+
+.canvas-wrap.prelaunch canvas {
+  opacity: 0.22;
 }
 
 .overlay {
@@ -112,6 +128,7 @@ canvas {
   color: #eaf2ff;
   border-radius: 8px;
   padding: 1.25rem;
+  z-index: 2;
 }
 
 .overlay[hidden] {
@@ -126,7 +143,7 @@ canvas {
   margin: 0;
   max-width: 36ch;
 }
-`r`n
+
 button {
   border: 1px solid rgba(255, 255, 255, 0.35);
   background: linear-gradient(135deg, #4f7bff, #6b5dff);
@@ -135,6 +152,46 @@ button {
   font-weight: 700;
   padding: 0.55rem 1rem;
   cursor: pointer;
+}
+
+.ad-break-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(3, 8, 18, 0.68);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.ad-break-panel {
+  width: min(560px, 94vw);
+  background: #e7edf6;
+  border: 1px solid #c9d5e6;
+  border-radius: 12px;
+  padding: 14px;
+  color: #0f172a;
+  text-align: center;
+}
+
+.ad-break-panel h3 {
+  margin: 0 0 8px;
+  font-size: clamp(18px, 2.4vw, 24px);
+}
+
+#adBreakHint {
+  margin: 0 0 10px;
+  color: #36415e;
+  font-size: 14px;
+}
+
+.ad-break-panel .adsbygoogle {
+  min-height: 140px;
+  margin: 0 auto 10px;
+}
+
+.ad-break-modal[hidden] {
+  display: none !important;
 }
 
 .site-footer {
@@ -162,40 +219,3 @@ button {
     min-height: 250px;
   }
 }
-
-
-
-.ad-break-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background: rgba(3, 8, 18, 0.68);
-  display: grid;
-  place-items: center;
-  padding: 16px;
-}
-
-.ad-break-panel {
-  width: min(560px, 94vw);
-  background: #e7edf6;
-  border: 1px solid #c9d5e6;
-  border-radius: 12px;
-  padding: 14px;
-  color: #0f172a;
-  text-align: center;
-}
-
-.ad-break-panel h3 {
-  margin: 0 0 10px;
-  font-size: clamp(18px, 2.4vw, 24px);
-}
-
-.ad-break-panel .adsbygoogle {
-  min-height: 140px;
-  margin: 0 auto 10px;
-}
-
-.ad-break-modal[hidden] {
-  display: none !important;
-}
-

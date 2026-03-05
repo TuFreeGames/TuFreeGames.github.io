@@ -10,6 +10,7 @@ const config = {
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
+const viewportEl = document.getElementById('gameViewport');
 
 const scoreEl = document.getElementById('score');
 const bestEl = document.getElementById('best');
@@ -19,10 +20,15 @@ const overlayTitle = document.getElementById('overlayTitle');
 const overlayDesc = document.getElementById('overlayDesc');
 const startBtn = document.getElementById('startBtn');
 const adBreakModal = document.getElementById('adBreakModal');
+const adBreakTitle = document.getElementById('adBreakTitle');
+const adBreakHint = document.getElementById('adBreakHint');
 const adBreakContinueBtn = document.getElementById('adBreakContinueBtn');
 
 let completedRuns = 0;
 let adBreakLoaded = false;
+let hasBootAdShown = false;
+let adBreakCountdownTimer = null;
+let adBreakAfterClose = null;
 
 const state = {
   running: false,
@@ -35,6 +41,13 @@ const state = {
   snake: [],
   food: { x: 0, y: 0 }
 };
+
+function setPrelaunchActive(active) {
+  if (!viewportEl) {
+    return;
+  }
+  viewportEl.classList.toggle('prelaunch', active);
+}
 
 function randInt(max) {
   return Math.floor(Math.random() * max);
@@ -81,19 +94,50 @@ function hideOverlay() {
   overlay.hidden = true;
 }
 
-function hideAdBreakModal() {
-  if (!adBreakModal) {
-    return;
+function clearAdBreakTimer() {
+  if (adBreakCountdownTimer) {
+    clearInterval(adBreakCountdownTimer);
+    adBreakCountdownTimer = null;
   }
-  adBreakModal.hidden = true;
 }
 
-function showAdBreakModal() {
+function hideAdBreakModal() {
+  clearAdBreakTimer();
+  if (adBreakModal) {
+    adBreakModal.hidden = true;
+  }
+
+  const cb = adBreakAfterClose;
+  adBreakAfterClose = null;
+  if (typeof cb === 'function') {
+    cb();
+  }
+}
+
+function showAdBreakModal(options = {}) {
   if (!adBreakModal) {
+    if (typeof options.onClose === 'function') {
+      options.onClose();
+    }
     return;
   }
 
+  const {
+    title = '稍作休息，下一局準備開始',
+    hint = '廣告載入中，關閉後即可繼續。',
+    countdownSec = 0,
+    onClose = null
+  } = options;
+
+  adBreakAfterClose = onClose;
   adBreakModal.hidden = false;
+  if (adBreakTitle) {
+    adBreakTitle.textContent = title;
+  }
+  if (adBreakHint) {
+    adBreakHint.textContent = hint;
+  }
+
   if (!adBreakLoaded) {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -102,6 +146,60 @@ function showAdBreakModal() {
       // Ignore ad-blocker/runtime errors to keep the game playable.
     }
   }
+
+  clearAdBreakTimer();
+  if (!adBreakContinueBtn) {
+    return;
+  }
+
+  if (countdownSec > 0) {
+    let remain = countdownSec;
+    adBreakContinueBtn.disabled = true;
+    adBreakContinueBtn.textContent = `${remain} 秒後可關閉`;
+    adBreakCountdownTimer = setInterval(() => {
+      remain -= 1;
+      if (remain <= 0) {
+        clearAdBreakTimer();
+        adBreakContinueBtn.disabled = false;
+        adBreakContinueBtn.textContent = '關閉並開始';
+      } else {
+        adBreakContinueBtn.textContent = `${remain} 秒後可關閉`;
+      }
+    }, 1000);
+  } else {
+    adBreakContinueBtn.disabled = false;
+    adBreakContinueBtn.textContent = '繼續遊戲';
+  }
+}
+
+function startGame() {
+  resetGame();
+  state.running = true;
+  hideAdBreakModal();
+  hideOverlay();
+  setPrelaunchActive(false);
+}
+
+function requestStartGame() {
+  if (!hasBootAdShown) {
+    hasBootAdShown = true;
+    startBtn.disabled = true;
+    startBtn.textContent = '開始加載...';
+
+    showAdBreakModal({
+      title: '遊戲加載中',
+      hint: '首次進入正在載入資源，廣告將於 5 秒後可關閉。',
+      countdownSec: 5,
+      onClose: () => {
+        startBtn.disabled = false;
+        startBtn.textContent = '開始遊戲';
+        startGame();
+      }
+    });
+    return;
+  }
+
+  startGame();
 }
 
 function handleGameOver() {
@@ -113,7 +211,7 @@ function handleGameOver() {
   updateHud();
   showOverlay('遊戲結束', `本局分數：${state.score}，再來一場！`, '再來一次');
   completedRuns += 1;
-  if (completedRuns % 3 === 0) {
+  if (completedRuns % 5 === 0) {
     showAdBreakModal();
   }
 }
@@ -228,19 +326,13 @@ function loop(ts) {
   requestAnimationFrame(loop);
 }
 
-function startGame() {
-  resetGame();
-  state.running = true;
-  hideAdBreakModal();
-  hideOverlay();
-}
-
 function init() {
   updateHud();
   resetGame();
+  setPrelaunchActive(true);
   showOverlay('貪食蛇', '按下「開始遊戲」後，使用 WASD 或方向鍵控制蛇移動。', '開始遊戲');
 
-  startBtn.addEventListener('click', startGame);
+  startBtn.addEventListener('click', requestStartGame);
   if (adBreakContinueBtn) {
     adBreakContinueBtn.addEventListener('click', hideAdBreakModal);
   }
@@ -250,8 +342,3 @@ function init() {
 }
 
 init();
-
-
-
-
-
