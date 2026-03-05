@@ -126,6 +126,7 @@ function showAdBreakModal(options = {}) {
     title = '稍作休息，下一局準備開始',
     hint = '廣告載入中，關閉後即可繼續。',
     countdownSec = 0,
+    autoCloseOnCountdown = false,
     onClose = null
   } = options;
 
@@ -155,15 +156,23 @@ function showAdBreakModal(options = {}) {
   if (countdownSec > 0) {
     let remain = countdownSec;
     adBreakContinueBtn.disabled = true;
-    adBreakContinueBtn.textContent = `${remain} 秒後可關閉`;
+    adBreakContinueBtn.textContent = autoCloseOnCountdown
+      ? `${remain} 秒後自動開始`
+      : `${remain} 秒後可關閉`;
     adBreakCountdownTimer = setInterval(() => {
       remain -= 1;
       if (remain <= 0) {
         clearAdBreakTimer();
-        adBreakContinueBtn.disabled = false;
-        adBreakContinueBtn.textContent = '關閉並開始';
+        if (autoCloseOnCountdown) {
+          hideAdBreakModal();
+        } else {
+          adBreakContinueBtn.disabled = false;
+          adBreakContinueBtn.textContent = '關閉並開始';
+        }
       } else {
-        adBreakContinueBtn.textContent = `${remain} 秒後可關閉`;
+        adBreakContinueBtn.textContent = autoCloseOnCountdown
+          ? `${remain} 秒後自動開始`
+          : `${remain} 秒後可關閉`;
       }
     }, 1000);
   } else {
@@ -181,25 +190,28 @@ function startGame() {
 }
 
 function requestStartGame() {
-  if (!hasBootAdShown) {
-    hasBootAdShown = true;
-    startBtn.disabled = true;
-    startBtn.textContent = '開始加載...';
+  startGame();
+}
 
-    showAdBreakModal({
-      title: '遊戲加載中',
-      hint: '首次進入正在載入資源，廣告將於 5 秒後可關閉。',
-      countdownSec: 5,
-      onClose: () => {
-        startBtn.disabled = false;
-        startBtn.textContent = '開始遊戲';
-        startGame();
-      }
-    });
+function runFirstBootAd() {
+  if (hasBootAdShown) {
     return;
   }
+  hasBootAdShown = true;
+  startBtn.disabled = true;
+  startBtn.textContent = '開始加載...';
 
-  startGame();
+  showAdBreakModal({
+    title: '遊戲加載中',
+    hint: '首次進入正在載入資源，廣告將於 5 秒後自動關閉。',
+    countdownSec: 5,
+    autoCloseOnCountdown: true,
+    onClose: () => {
+      startBtn.disabled = false;
+      startBtn.textContent = '開始遊戲';
+      startGame();
+    }
+  });
 }
 
 function handleGameOver() {
@@ -338,7 +350,9 @@ function init() {
   }
   window.addEventListener('keydown', onKeyDown, { passive: false });
 
+  runFirstBootAd();
   requestAnimationFrame(loop);
 }
 
 init();
+
