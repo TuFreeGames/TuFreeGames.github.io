@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>貪食蛇｜Free Web Games Hub</title>
+    <meta name="description" content="經典貪食蛇網頁版，支援鍵盤 WASD 與方向鍵操作。" />
+    <link rel="stylesheet" href="./game.css" />
+  </head>
+  <body>
+    <div class="top-strip">
+      <div class="page-wrap top-strip-inner">
+        <nav class="top-bar" aria-label="主選單">
+          <a class="icon-button" href="../../index.html" aria-label="返回主頁">
+            <img src="../../assets/icon_main-menu.png" alt="" />
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <main class="page-wrap game-page">
+      <section class="card game-stage" aria-label="遊戲畫面">
+        <div class="hud">
+          <div>分數：<span id="score">0</span></div>
+          <div>最高分：<span id="best">0</span></div>
+          <div>速度：<span id="speed">7</span></div>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="game" width="640" height="640" aria-label="貪食蛇遊戲"></canvas>
+          <div class="overlay" id="overlay">
+            <h1 id="overlayTitle">貪食蛇</h1>
+            <p id="overlayDesc">按下「開始遊戲」後，使用 WASD 或方向鍵控制蛇移動。</p>
+            <button id="startBtn" type="button">開始遊戲</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card game-info" aria-labelledby="game-info-title">
+        <h2 id="game-info-title">貪食蛇</h2>
+        <p>吃到食物就會加分並變長，撞到牆壁或自己的身體就結束。</p>
+        <p>操作：`W / A / S / D` 或 `↑ / ← / ↓ / →`。</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-wrap">
+        <small>c 2026 Tu Free Games</small>
+      </div>
+    </footer>
+
+    <script src="./game.js"></script>
+  </body>
+</html>
+

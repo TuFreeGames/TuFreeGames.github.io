@@ -1,10 +1,10 @@
-:root {
+﻿:root {
   --bg-start: #05070d;
   --bg-end: #081426;
-  --surface: #ffffff;
+  --surface: #e7edf6;
   --text: #0f172a;
   --muted: #43506a;
-  --line: #dbe5f1;
+  --line: #c9d5e6;
   --brand: #4f7bff;
   --brand-2: #6b5dff;
   --hero-text: #f1f5ff;
@@ -167,7 +167,7 @@ main {
 .card:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 30px rgba(9, 20, 36, 0.12);
-  background-color: #fcfdff;
+  background-color: #edf3fb;
 }
 
 h2,
@@ -215,7 +215,9 @@ ul {
 
 .game-grid {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
   justify-content: center;
+  gap: 0.9rem;
 }
 
 .game-card {
@@ -223,7 +225,7 @@ ul {
   border: 1px solid #d8e4ff;
   border-radius: 8px;
   padding: 1rem;
-  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  background: linear-gradient(180deg, #eaf1fa, #dde7f4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -254,6 +256,14 @@ ul {
   box-shadow: 0 8px 18px rgba(42, 76, 168, 0.12);
 }
 
+.game-thumb-placeholder {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #121d3a, #0b1326);
+  color: #e9f4ff;
+  font-size: clamp(2.4rem, 7vw, 3.6rem);
+}
+
 .play-button {
   margin-top: 0.4rem;
   padding: 0.6rem 1rem;
@@ -272,7 +282,7 @@ ul {
 .ad-slot {
   border: 1px dashed #9fb9d9;
   border-radius: 8px;
-  background: #eef4ff;
+  background: #dee8f6;
   color: #1d4e89;
   text-align: center;
   padding: 1rem;
@@ -297,3 +307,4 @@ ul {
     height: 130px;
   }
 }
+

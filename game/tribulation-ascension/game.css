@@ -1,13 +1,13 @@
-:root {
+﻿:root {
   --bg-top: #040611;
   --bg-bottom: #0a1230;
   --ui-bg: rgba(7, 12, 26, 0.74);
   --ui-border: rgba(146, 182, 255, 0.35);
   --text: #eaf2ff;
   --accent: #5ea0ff;
-  --card-bg: #ffffff;
+  --card-bg: #e7edf6;
   --card-text: #0f172a;
-  --card-line: #dbe5f1;
+  --card-line: #c9d5e6;
 }
 
 * {
@@ -363,3 +363,4 @@ button {
     min-height: 0;
   }
 }
+
