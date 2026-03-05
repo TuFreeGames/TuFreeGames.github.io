@@ -303,6 +303,10 @@ ul {
   color: #d5e2ff;
 }
 
+.site-footer .adsbygoogle {
+  margin: 0 0 0.9rem;
+}
+
 @media (max-width: 1080px) {
   .game-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
