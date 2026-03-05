@@ -79,8 +79,25 @@ body {
 
 .game-page {
   display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+  align-items: start;
   gap: 1rem;
   padding: 1.2rem 0 2rem;
+}
+
+.side-ad {
+  position: sticky;
+  top: 76px;
+  padding: 0.7rem;
+}
+
+.side-ad .adsbygoogle {
+  min-height: 600px;
+}
+
+.game-stage,
+.game-info {
+  grid-column: 2;
 }
 
 .card {
@@ -345,6 +362,24 @@ button {
 }
 
 @media (max-width: 980px) {
+  .game-page {
+    grid-template-columns: 1fr;
+  }
+
+  .side-ad,
+  .game-stage,
+  .game-info {
+    grid-column: 1;
+  }
+
+  .side-ad {
+    position: static;
+  }
+
+  .side-ad .adsbygoogle {
+    min-height: 250px;
+  }
+
   .wave-banner {
     top: 5%;
   }
